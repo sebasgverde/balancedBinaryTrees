@@ -196,6 +196,192 @@ class Frame extends JFrame
 		
 		return A;
 	}
+	
+
+	public void enOrden(Arbol A)
+	{
+		
+		if(A != null)
+		{
+			enOrden(A.hijoIzq);
+			agregarTexto(A.info + "	");
+			enOrden(A.hijoDer);
+		}
+	}
+	
+	public void preOrden(Arbol A)
+	{
+		if(A != null)
+		{
+			agregarTexto(A.info + "	");
+			preOrden(A.hijoIzq);
+			preOrden(A.hijoDer);
+		}
+	}
+	
+	public void posOrden(Arbol A)
+	{
+		if(A != null)
+		{
+			posOrden(A.hijoIzq);
+			posOrden(A.hijoDer);
+			agregarTexto(A.info + "	");
+		}
+	}
+	
+	public void porNiveles(Arbol A)
+	{
+		Cola q = new Cola();
+		//q.cabeza.info = A;
+		q.insertaC(A, q);
+		while(!q.colaVacia())
+		{
+			Arbol a = q.remuevaC(q);
+			agregarTexto(a.info + "	");
+			if(a.hijoIzq != null)
+				q.insertaC(a.hijoIzq, q);
+			if(a.hijoDer != null)
+				q.insertaC(a.hijoDer, q);
+		}
+		
+	}
+	
+	public void porNivelesArrayList(Arbol A)
+	{
+		ArrayList<Arbol> q = new ArrayList<Arbol>();
+		q.add(A);
+		while(q.size() != 0)
+		{
+			Arbol a = q.get(0);
+			q.remove(0);
+			System.out.print(a.info + " ");
+			if(a.hijoIzq != null)
+				q.add(a.hijoIzq);
+			if(a.hijoDer != null)
+				q.add(a.hijoDer);
+		}	
+	}
+	
+	public int altura(Arbol A)
+	{
+		if(A == null)
+		{
+			return -1;
+		}
+		else
+			return (1 + Math.max(altura(A.hijoIzq), altura(A.hijoDer)));
+	}
+	
+	public boolean esBalanceado(Arbol A)
+	{
+		/*como podemos ver la visualizacion de los factores de balance tambien la
+		 * tenia aqui, pero no me los imprimia todos en ciertos casos, lo que pasaba era 
+		 * que como el return tiene puros && si el valor absoluto no cumplia la
+		 * condicion pues era falso, y de inmediato retornaba ese falso sin llegar
+		 * a llamar la funcion para los hijos, en resumen, el problema es que esto
+		 * no recorre todo el arbol solo indica si esta balanceado o no*/
+		if(A != null)
+		{
+			/*System.out.println("el factor de balance es: " 
+					+ (altura(A.hijoIzq) - altura(A.hijoDer)));*/
+			
+			return ((Math.abs(altura(A.hijoIzq) - altura(A.hijoDer)) <= 1) 
+					&& esBalanceado(A.hijoIzq) && esBalanceado(A.hijoDer));		
+		}
+		else
+			return true;
+	}
+	
+	public void factBalancePreOrd(Arbol A, boolean imprimir)
+	{
+		if(A != null)
+		{
+			int fact = (altura(A.hijoIzq) - altura(A.hijoDer));
+			A.factBalance = fact;
+			if(imprimir)
+				agregarTexto("El factor de balance de " + A.info.toString() + " es: " 
+						+ fact + "\n");
+			factBalancePreOrd(A.hijoIzq, imprimir);
+			factBalancePreOrd(A.hijoDer, imprimir);
+		}
+	}
+	
+	public int numNodos(Arbol A)
+	{
+		if(A == null)
+			return 0;
+		else
+			return (1 + numNodos(A.hijoIzq) + numNodos(A.hijoDer));
+	}
+	
+	public int numHojas(Arbol A)
+	{
+		if(A == null)
+			return 0;
+		else if(A.hijoIzq == null && A.hijoDer == null)
+			return 1;
+		else
+			return (numHojas(A.hijoIzq) + numHojas(A.hijoDer));
+	}
+	public Arbol rotarSimpIzq(Arbol A)
+	{
+		Arbol aux = new Arbol();
+		aux = A;
+		A = A.hijoDer;
+		aux.hijoDer = A.hijoIzq;
+		A.hijoIzq = aux;
+		return A;
+
+	}
+	
+	public Arbol rotarSimpDer(Arbol A)
+	{
+		Arbol aux = new Arbol();
+		aux = A;
+		A = A.hijoIzq;
+		aux.hijoIzq = A.hijoDer;
+		A.hijoDer = aux;
+		return A;
+	}
+	
+	public Arbol rotarDoblIzq(Arbol A)
+	{
+		A.hijoDer = rotarSimpDer(A.hijoDer);
+		A = rotarSimpIzq(A);
+		return A;
+	}
+	
+	public Arbol rotarDoblDer(Arbol A)
+	{
+		A.hijoIzq = rotarSimpIzq(A.hijoIzq);
+		A = rotarSimpDer(A);
+		return A;
+	}
+	
+	public Arbol balancear(Arbol A)
+	{
+		if(A != null)
+		{
+			A.hijoDer = balancear(A.hijoDer);
+			A.hijoIzq = balancear(A.hijoIzq);
+			if((altura(A.hijoIzq) - altura(A.hijoDer)) > 1)
+			{
+				if((altura(A.hijoIzq.hijoIzq) - altura(A.hijoIzq.hijoDer)) >= 0)
+					A = rotarSimpDer(A);
+				else
+					A = rotarDoblDer(A);
+					
+			}
+			else if((altura(A.hijoIzq) - altura(A.hijoDer)) < -1)
+			{
+				if((altura(A.hijoDer.hijoIzq) - altura(A.hijoDer.hijoDer)) <= 0)
+					A = rotarSimpIzq(A);
+				else
+					A = rotarDoblIzq(A);				
+			}
+		}
+		return A;
+	}
 }
 
 //@SuppressWarnings("serial")
@@ -278,37 +464,43 @@ class Panel extends JPanel implements ActionListener
 	JButton a;
 	JButton c;
 	JButton d;
+	JButton e;
 	Arbol arb;
 	
 	public Panel(Frame fra)
 	{
         //setLayout(new BorderLayout());
-		setLayout(new GridLayout(4,1));
+		setLayout(new GridLayout(5,1));
 
 		a = new JButton("Crear arbol");
 		b = new JButton("Eliminar");
 		c = new JButton("Buscar");
 		d = new JButton("Reiniciar");
+		e = new JButton("Mostrar Info");
 		
 		a.setActionCommand("crear");
 		b.setActionCommand("eliminar");
 		c.setActionCommand("buscar");
 		d.setActionCommand("reiniciar");
+		e.setActionCommand("mostrar");
 		
 		a.addActionListener(this);
 		b.addActionListener(this);
 		c.addActionListener(this);
 		d.addActionListener(this);
+		e.addActionListener(this);
 		
 		a.setBackground(Color.lightGray);
 		b.setBackground(Color.lightGray);
 		c.setBackground(Color.lightGray);
 		d.setBackground(Color.lightGray);
+		e.setBackground(Color.lightGray);
 			
 		add(a);
 		add(b);
 		add(c);
 		add(d);
+		add(e);
 		
 		
 		frame = fra;
@@ -357,6 +549,39 @@ class Panel extends JPanel implements ActionListener
 		{		
 			frame.borrarTexto();
 			frame.repintarArbol(null);
+		}
+		else if(comando == "mostrar")
+		{
+			arb = frame.getArbol();
+			
+			frame.agregarTexto("\n\nLos valores del arbol al recorrerlo en orden : " + "\n");
+			frame.enOrden(arb);
+			
+			frame.agregarTexto("\n\nLos valores del arbol al recorrerlo en preorden : " + "\n");
+			frame.preOrden(arb);
+			
+			frame.agregarTexto("\n\nLos valores del arbol al recorrerlo en posorden : " + "\n");
+			frame.posOrden(arb);
+			
+			frame.agregarTexto("\n\nLos valores del arbol al recorrerlo por niveles : " + "\n");
+			frame.porNiveles(arb);
+			
+			frame.agregarTexto("\n\nLa altura del arbol es:	" + frame.altura(arb) + "\n");
+			
+			frame.agregarTexto("\n\nEl numero de nodos es:	" + frame.numNodos(arb) + "\n");
+			
+			frame.agregarTexto("\n\nEl numero de hojas es:	" + frame.numHojas(arb) + "\n\n");
+			
+			frame.agregarTexto("\nLos factores de balanceo de cada nodo en preorden son : " + "\n\n");
+			frame.factBalancePreOrd(arb, true);
+			
+			if(frame.esBalanceado(arb))
+				frame.agregarTexto("\n\nEl arbol esta balanceado" + "\n");
+			else
+				frame.agregarTexto("\n\nEl arbol esta desbalanceado" + "\n");
+			
+			if(frame != null)
+				frame.repintarArbol(arb);
 		}
 		
 		}

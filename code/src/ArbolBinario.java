@@ -319,68 +319,6 @@ class Acciones{
 		while(!esBalanceado(arbol))
 			arbol = balancear(arbol);
 		*/
-		
-		/*x = JOptionPane.showInputDialog("Ingrese el valor que desea eliminar\n(parar terminar ingrese parar)");
-		while(!x.toString().equals("parar"))
-		{
-			arbol = eliminar(arbol, x);
-		
-			if(frame != null)
-				frame.repintarArbol(arbol);
-			
-			if(!esBalanceado(arbol))
-				JOptionPane.showMessageDialog(null,"El arbol quedo desbalaceado\napliquemos el balanceo");
-			
-			arbol = balancear(arbol);
-			
-			if(frame != null)
-				frame.repintarArbol(arbol);
-			
-			x = JOptionPane.showInputDialog("Ingrese el valor que desea eliminar\n(parar terminar ingrese parar)");
-		}
-		
-		x = JOptionPane.showInputDialog("Ingrese el valor que desea buscar\n(parar terminar ingrese parar)");		
-		while(!x.toString().equals("parar"))
-		{
-		if(buscar(arbol, x))
-			frame.agregarTexto("\nEl valor " + x + " si pertenece" + "\n");
-		else
-			frame.agregarTexto("\nEl valor " + x + " no pertenece" + "\n");
-		
-		if(frame != null)
-			frame.repintarArbol(arbol);
-		
-		x = JOptionPane.showInputDialog("Ingrese el valor que desea buscar\n(parar terminar ingrese parar)");
-		}*/		
-		frame.agregarTexto("\n\nLos valores del arbol al recorrerlo en orden : " + "\n");
-		enOrden(arbol);
-		
-		frame.agregarTexto("\n\nLos valores del arbol al recorrerlo en preorden : " + "\n");
-		preOrden(arbol);
-		
-		frame.agregarTexto("\n\nLos valores del arbol al recorrerlo en posorden : " + "\n");
-		posOrden(arbol);
-		
-		frame.agregarTexto("\n\nLos valores del arbol al recorrerlo por niveles : " + "\n");
-		porNiveles(arbol);
-		
-		frame.agregarTexto("\n\nLa altura del arbol es:	" + altura(arbol) + "\n");
-		
-		frame.agregarTexto("\n\nEl numero de nodos es:	" + numNodos(arbol) + "\n");
-		
-		frame.agregarTexto("\n\nEl numero de hojas es:	" + numHojas(arbol) + "\n\n");
-		
-		frame.agregarTexto("\nLos factores de balanceo de cada nodo en preorden son : " + "\n\n");
-		factBalancePreOrd(arbol, true);
-		
-		if(esBalanceado(arbol))
-			frame.agregarTexto("\n\nEl arbol esta balanceado" + "\n");
-		else
-			frame.agregarTexto("\n\nEl arbol esta desbalanceado" + "\n");
-		
-		if(frame != null)
-			frame.repintarArbol(arbol);
-		
 	}
 	
 }
