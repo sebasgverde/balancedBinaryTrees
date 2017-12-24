@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+/////////////////////////////////////
+//
+// Author: Sebastian Garcia Valencia
+//
+/////////////////////////////////////
 
 //@SuppressWarnings("serial")
 class Frame extends JFrame
@@ -21,7 +26,7 @@ class Frame extends JFrame
 	{
 		A= a;
 		
-		this.setTitle("Arbol");
+		this.setTitle("Balanced Binary Tree");
         this.setLocation(10, 10);
         this.setSize(1000, 700);
         this.setResizable(true);
@@ -149,7 +154,7 @@ class Frame extends JFrame
 				}
 			}
 			else
-				agregarTexto("\nEl valor a eliminar no existe" + "\n");
+				agregarTexto("\nValue to delete doesn't exist" + "\n");
 		}
 		catch(Exception e)
 		{
@@ -299,7 +304,7 @@ class Frame extends JFrame
 			int fact = (altura(A.hijoIzq) - altura(A.hijoDer));
 			A.factBalance = fact;
 			if(imprimir)
-				agregarTexto("El factor de balance de " + A.info.toString() + " es: " 
+				agregarTexto("Balance factor of " + A.info.toString() + " is: " 
 						+ fact + "\n");
 			factBalancePreOrd(A.hijoIzq, imprimir);
 			factBalancePreOrd(A.hijoDer, imprimir);
@@ -472,11 +477,11 @@ class Panel extends JPanel implements ActionListener
         //setLayout(new BorderLayout());
 		setLayout(new GridLayout(5,1));
 
-		a = new JButton("Crear arbol");
-		b = new JButton("Eliminar");
-		c = new JButton("Buscar");
-		d = new JButton("Reiniciar");
-		e = new JButton("Mostrar Info");
+		a = new JButton("Create Tree");
+		b = new JButton("Delete Node");
+		c = new JButton("Find");
+		d = new JButton("Restart");
+		e = new JButton("Show Info");
 		
 		a.setActionCommand("crear");
 		b.setActionCommand("eliminar");
@@ -517,7 +522,7 @@ class Panel extends JPanel implements ActionListener
 		}
 		else if(comando == "eliminar")
 		{
-			Object x = JOptionPane.showInputDialog("Ingrese el valor que desea eliminar");
+			Object x = JOptionPane.showInputDialog("Write the value to delete");
 			
 			arb = frame.getArbol();
 			arb = frame.eliminar(arb, x);
@@ -525,7 +530,7 @@ class Panel extends JPanel implements ActionListener
 				frame.repintarArbol(arb);
 			
 			if(!accion.esBalanceado(arb))
-				JOptionPane.showMessageDialog(null,"El arbol quedo desbalaceado\napliquemos el balanceo");
+				JOptionPane.showMessageDialog(null,"Tree is unbalanced\nlets apply method");
 			
 			arb = accion.balancear(arb);
 			
@@ -534,13 +539,13 @@ class Panel extends JPanel implements ActionListener
 		}
 		else if(comando == "buscar")
 		{
-			Object x = JOptionPane.showInputDialog("Ingrese el valor que desea buscar");		
+			Object x = JOptionPane.showInputDialog("Write the value you want to find");		
 			arb = frame.getArbol();
 			
 			if(frame.buscar(arb, x))
-				frame.agregarTexto("\nEl valor " + x + " si pertenece" + "\n");
+				frame.agregarTexto("\nValue " + x + " belongs to tree" + "\n");
 			else
-				frame.agregarTexto("\nEl valor " + x + " no pertenece" + "\n");
+				frame.agregarTexto("\nValue " + x + " doesn't belong to tree" + "\n");
 			
 			if(frame != null)
 				frame.repintarArbol(arb);
@@ -554,31 +559,31 @@ class Panel extends JPanel implements ActionListener
 		{
 			arb = frame.getArbol();
 			
-			frame.agregarTexto("\n\nLos valores del arbol al recorrerlo en orden : " + "\n");
+			frame.agregarTexto("\n\nTree Values with an Inorder traversal : " + "\n");
 			frame.enOrden(arb);
 			
-			frame.agregarTexto("\n\nLos valores del arbol al recorrerlo en preorden : " + "\n");
+			frame.agregarTexto("\n\nTree Values with a Preorder traversal : " + "\n");
 			frame.preOrden(arb);
 			
-			frame.agregarTexto("\n\nLos valores del arbol al recorrerlo en posorden : " + "\n");
+			frame.agregarTexto("\n\nTree Values with a Postorder traversal : " + "\n");
 			frame.posOrden(arb);
 			
-			frame.agregarTexto("\n\nLos valores del arbol al recorrerlo por niveles : " + "\n");
+			frame.agregarTexto("\n\nTree Values with a traversal by levels: " + "\n");
 			frame.porNiveles(arb);
 			
-			frame.agregarTexto("\n\nLa altura del arbol es:	" + frame.altura(arb) + "\n");
+			frame.agregarTexto("\n\nTree height is:	" + frame.altura(arb) + "\n");
 			
-			frame.agregarTexto("\n\nEl numero de nodos es:	" + frame.numNodos(arb) + "\n");
+			frame.agregarTexto("\n\nNumber of nodes is:	" + frame.numNodos(arb) + "\n");
 			
-			frame.agregarTexto("\n\nEl numero de hojas es:	" + frame.numHojas(arb) + "\n\n");
+			frame.agregarTexto("\n\nNumber of leaf nodes is:	" + frame.numHojas(arb) + "\n\n");
 			
-			frame.agregarTexto("\nLos factores de balanceo de cada nodo en preorden son : " + "\n\n");
+			frame.agregarTexto("\nBalance factors of each node in preorder are : " + "\n\n");
 			frame.factBalancePreOrd(arb, true);
 			
 			if(frame.esBalanceado(arb))
-				frame.agregarTexto("\n\nEl arbol esta balanceado" + "\n");
+				frame.agregarTexto("\n\nTree is balanced" + "\n");
 			else
-				frame.agregarTexto("\n\nEl arbol esta desbalanceado" + "\n");
+				frame.agregarTexto("\n\nTree is unbalanced" + "\n");
 			
 			if(frame != null)
 				frame.repintarArbol(arb);

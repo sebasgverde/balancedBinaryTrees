@@ -1,4 +1,8 @@
-
+/////////////////////////////////////
+//
+// Author: Sebastian Garcia Valencia
+//
+/////////////////////////////////////
 
 
 
@@ -67,12 +71,12 @@ class Acciones{
 			if(Integer.parseInt(x.toString()) < Integer.parseInt(pos.info.toString()))
 				{
 					pos.colocaIzq(x, pos);
-					frame.agregarTexto("El hijo izq de "+ pos.info+" es: " + pos.hijoIzq.info + "\n");
+					frame.agregarTexto("The left child of "+ pos.info+" is: " + pos.hijoIzq.info + "\n");
 				}
 			else
 				{
 					pos.colocaDer(x, pos);
-					frame.agregarTexto("El hijo der de "+ pos.info+ " es: " + pos.hijoDer.info + "\n");
+					frame.agregarTexto("The right child of "+ pos.info+ " is: " + pos.hijoDer.info + "\n");
 				}
 		}
 		catch(Exception e)
@@ -80,12 +84,12 @@ class Acciones{
 			if(x.toString().compareToIgnoreCase(pos.info.toString()) < 0)
 				{
 					pos.colocaIzq(x, pos);
-					frame.agregarTexto("El hijo izq de "+ pos.info+" es: " + pos.hijoIzq.info + "\n");
+					frame.agregarTexto("The left child of "+ pos.info+" is: " + pos.hijoIzq.info + "\n");
 				}
 			else
 				{
 					pos.colocaDer(x, pos);
-					frame.agregarTexto("El hijo der de "+ pos.info+ " es: " + pos.hijoDer.info + "\n");
+					frame.agregarTexto("The right child of "+ pos.info+ " is: " + pos.hijoDer.info + "\n");
 				}
 		}
 	}
@@ -191,7 +195,7 @@ class Acciones{
 			int fact = (altura(A.hijoIzq) - altura(A.hijoDer));
 			A.factBalance = fact;
 			if(imprimir)
-				frame.agregarTexto("El factor de balance de " + A.info.toString() + " es: " 
+				frame.agregarTexto("Balance factor of " + A.info.toString() + " is: " 
 						+ fact + "\n");
 			factBalancePreOrd(A.hijoIzq, imprimir);
 			factBalancePreOrd(A.hijoDer, imprimir);
@@ -286,21 +290,21 @@ class Acciones{
 		//frame.agregarTexto("los resultados son:" + "\n");
 		//Scanner sc = new Scanner(System.in); 
 		//Object x = sc.next();
-		Object x = JOptionPane.showInputDialog("Ingrese el valor del nodo raiz\n(para terminar ingrese fin)");
+		Object x = JOptionPane.showInputDialog("Write the value of root node\n(to finish write end)");
 
-		if(!x.toString().equals("fin"))
+		if(!x.toString().equals("end"))
 		{
 			arbol = new Arbol();
 			arbol.info = x;
 			frame = fra;
 			frame.setArbol(arbol);
-			frame.agregarTexto("El nodo raiz es: " + x + "\n");
+			frame.agregarTexto("The root node is : " + x + "\n");
 			frame.repintarArbol(arbol);
 			//x = sc.next();
-			x = JOptionPane.showInputDialog("(para terminar ingrese fin)");
+			x = JOptionPane.showInputDialog("to finish write end");
 		}
 		
-		while(!x.toString().equals("fin"))
+		while(!x.toString().equals("end"))
 		{
 			Arbol pos = buscarPosicion(x, arbol);
 			ubicarValor(x, pos);
@@ -308,12 +312,12 @@ class Acciones{
 			frame.repintarArbol(arbol);
 			
 			if(!esBalanceado(arbol))
-				JOptionPane.showMessageDialog(null,"El arbol quedo desbalaceado\napliquemos el balanceo");
+				JOptionPane.showMessageDialog(null,"Tree is unbalanced\nlets apply method");
 			arbol = balancear(arbol);
 			factBalancePreOrd(arbol, false);
 			frame.repintarArbol(arbol);
 			//x = sc.next();
-			x = JOptionPane.showInputDialog("para terminar ingrese fin");
+			x = JOptionPane.showInputDialog("to finish write end");
 		}
 		/*
 		while(!esBalanceado(arbol))

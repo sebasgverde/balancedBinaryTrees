@@ -1,3 +1,10 @@
+/////////////////////////////////////
+//
+// Author: Sebastian Garcia Valencia
+//
+/////////////////////////////////////
+
+
 /*Definicion de la clase ArbolBinario*/
 class Arbol
 {
